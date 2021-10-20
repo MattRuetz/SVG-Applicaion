@@ -8,7 +8,7 @@ The purpose of this application is to:
 a) Give users the ability to access a library of SVG images (stored in the "uploads" folder [database])
 b) Allow users to manipulate features (rectangles, circles, paths, and whole groups) by scaling, translating, and altering the color of these elements.
 c) Allow for the storage of altered / custom SVG images created using the tools within the web app
-d) Upload their own SVG images to bb stored in the local database
+d) Upload their own SVG images to be stored in the local database
 
 
 ---- CONTENTS ----
