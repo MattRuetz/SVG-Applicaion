@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	
+    <title>SVG Image Viewer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="CHANGE ME">
+    <meta name="keywords" content="CHANGE ME">
+    <meta name="author" content="CHANGE ME">
+    <!-- Load jquery, bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <!-- Custom CSS End -->
+</head>
+<body>
+	<h3 class="main-header">SVG Image Viewer</h3>
+	<h5 class="sub-header">By Matthew Ruetz</h5>
+	<br><br>
+    <h5>List of SVG Images:</h5>
+
+    <div class="scroll-table">
+	    <table id="svgList-table">
+	    	<tr class="heading-row">
+		    	<th>Image (click to download)</th>
+		    	<th>File name (click to download)</th>
+		    	<th>File size</th>
+		    	<th>Number of rectangles</th>
+		    	<th>Number of circles</th>
+		    	<th>Number of paths</th>
+		    	<th>Number of groups</th>
+	    	</tr>
+	    </table>
+	</div>
+
+    <hr>
+
+    <div class="dropdown">
+    	<button class="dropdown-button">Choose image to view ▼</button>
+    	<div class="dropdown-items" id="svg-dropdown"></div>
+    </div>
+    <br>
+
+    <div id="svg-view-link"></div>
+   	
+    <div id="disp-img-table" class="scroll-table"></div>
+    <br>
+
+    <hr>
+
+    <div class="dropdown">
+    	<button class="dropdown-button" id="show-other-attr-btn">See additional attributes for ▼</button>
+    	<div id="component-dropdown" class="dropdown-items">
+    		<!--POPULATE WHEN SCHAPE IS DISPLAYED-->
+    	</div>
+    </div>
+    <br><br>
+    <div id="show-other-attr"></div>
+
+    <hr>
+
+    <h5>Edit SVG Image:</h5>
+
+	<div class="dropdown">
+    	<button id="edit-dropdown-btn" class="dropdown-button">Choose image to edit ▼</button>
+    	<div id="edit-dropdown" class="dropdown-items">
+    		<!--POPULATE WHEN SCHAPE IS DISPLAYED-->
+    	</div>
+    </div>
+
+    <div id="edit-label"></div>
+
+    <table class="scroll-table">
+    	<tr>
+    		<td class="table-half-cell">
+    			<form ref='edit-title-form'
+          			id='edit-title-form'>
+          			<div class="form-group">
+                		<label for="titleEntryBox">Title:
+                		</label>
+                		<input type="text" class="form-control" id="titleEntryBox" placeholder="SVG title" onclick="this.select()">
+                
+            		</div>
+        		<div class="form-group">
+            		<input type='submit' class="matching-btn">
+        		</div>
+    			</form>
+			</td>
+
+			<td>
+    			<form ref='edit-desc-form'
+          			id='edit-desc-form'>
+          			<div class="form-group">
+                		<label for="descEntryBox">Description:
+                		</label>
+                		<input type="text" class="form-control" id="descEntryBox" placeholder="SVG description" onclick="this.select()">
+                
+            		</div>
+        			<div class="form-group">
+            			<input type='submit' class="matching-btn">
+        			</div>
+    			</form>
+			</td>
+    	</tr>
+
+    	<tr>
+    		<td colspan="2">
+
+    			<div class="dropdown">
+			    	<button class="dropdown-button">Choose component ▼</button>
+			    	<div id="component-attr-dropdown" class="dropdown-items">
+			    		<!--POPULATE WHEN SCHAPE IS DISPLAYED-->
+			    	</div>
+			    </div>
+			    <div id="edit-attr-label"></div>
+
+	    		<form ref='edit-attr-form'
+			        id='edit-attr-form'>
+			        <div class="form-group">
+			            <label for="entryBox">Enter name of attribute to create, or edit (if it exists):
+			            </label>
+			            <input type="text" class="form-control" id="attrNameEntryBox" placeholder="Attribute name..." onclick="this.select()">
+			            <br>
+			            <label for="entryBox">Enter a new value for this attribute:
+			            </label>
+			            <input type="text" class="form-control" id="attrValEntryBox" placeholder="Attribute value..." onclick="this.select()">
+			        </div>
+	        		<div class="form-group">
+	           			<input type='submit' class="matching-btn">
+	        		</div>
+	    		</form>
+    		</td>
+    	</tr>
+
+	</table>
+	<br>
+
+	<hr>
+
+	<h5>Upload SVG image file:</h5>
+
+	<form ref="upload-form" id="upload-form">
+		<div class="form-group">
+			<label for="browse-upload">Select file:</label>
+			<input type="file" id="browse-upload" name="uploadFile">
+
+		    <input type='submit' class="matching-btn" value="Upload">
+		</div>
+
+    </form>
+
+    <hr>
+    <h5>Create new SVG image:</h5>
+
+    <form ref="createSVG-form" id="createSVG-form">
+    	<div class="form-group">
+    		<label for=newSVGNameBox>Enter the name of the new SVG file:</label>
+    		<input type="text" class="form-control" id="newSVGNameBox" placeholder="SVG file name" onclick="this.select()">
+    		<label for=newSVGTitleBox>Enter the TITLE of the new SVG:</label>
+    		<input type="text" class="form-control" id="newSVGTitleBox" placeholder="SVG Title" onclick="this.select()">
+    		<label for=newSVGDescBox>Enter the DESCRIPTION of the new SVG:</label>
+    		<input type="text" class="form-control" id="newSVGDescBox" placeholder="SVG Description" onclick="this.select()">
+    	</div>
+
+    	<div class="form-group">
+	        <input type='submit' class="matching-btn" value="Create SVG">
+	    </div>
+    </form>
+
+	<hr>
+
+	<h5>Add shape to exiting SVG image:</h5>
+	<div class="dropdown">
+    	<button class="dropdown-button">Choose image add to ▼</button>
+    	<div id="add-dropdown" class="dropdown-items">
+
+    	</div>
+    </div>
+
+    <div><a id="add-label-link"></a></div>
+
+    <table class="scroll-table">
+    	<tr class="heading-row">
+    		<th class="table-half-cell">New Rectangle:</th>
+    		<th>New Circle:</th>
+    	</tr>
+    	<tr>
+    		<td class="table-half-cell">
+    			<form ref="addRect-form" id="addRect-form">
+    				<div class="form-group">
+    					X position:
+    					<input type="text" class="form-control" id="newRect_xEntryBox" placeholder="..." onclick="this.select()"><br>
+    					Y position:
+    					<input type="text" class="form-control" id="newRect_yEntryBox" placeholder="..." onclick="this.select()"><br>
+    					Width:
+    					<input type="text" class="form-control" id="newRect_widthEntryBox" placeholder="..." onclick="this.select()"><br>
+    					Height:
+    					<input type="text" class="form-control" id="newRect_heightEntryBox" placeholder="..." onclick="this.select()"><br>
+    					Units:
+    					<input type="text" class="form-control" id="newRect_unitsEntryBox" placeholder="eg: cm, mm, px, etc.." onclick="this.select()"><br>
+    					Fill:
+    					<input type="color" id="rectFill" name="rectFill" value="#ff0000">
+    				</div>
+    				<div class="form-group">
+	        			<input type='submit' class="matching-btn" value="Add shape">
+	    			</div>
+    			</form>
+    		</td>
+
+    		<td>
+    			<form ref="addCirc-form" id="addCirc-form">
+    				<div class="form-group">
+    					X position:
+    					<input type="text" class="form-control" id="newCirc_xEntryBox" placeholder="..." onclick="this.select()"><br>
+    					Y position:
+    					<input type="text" class="form-control" id="newCirc_yEntryBox" placeholder="..." onclick="this.select()"><br>
+    					Radius:
+    					<input type="text" class="form-control" id="newCirc_radiusEntryBox" placeholder="..." onclick="this.select()"><br>
+    					Units:
+    					<input type="text" class="form-control" id="newCirc_unitsEntryBox" placeholder="eg: cm, mm, px, etc.." onclick="this.select()"><br>
+    					Fill:
+    					<input type="color" id="circFill" name="circFill" value="#ff0000">
+    				</div>
+    				<div class="form-group">
+	        			<input type='submit' class="matching-btn" value="Add shape">
+	    			</div>
+    			</form>
+    		</td>
+    	</tr>
+
+    </table>
+
+    <hr>
+    <h5>Scale shapes</h5>
+    <p>Changing the scale factors below will change the size of <strong>all</strong> rectangles/circles in the image.<br>Enter values between 0-1.0</p>
+    
+    <div class="dropdown">
+    	<button class="dropdown-button">Choose image to scale for ▼</button>
+    	<div class="dropdown-items" id="scale-dropdown"></div>
+    </div>
+
+    <div><a id="scale-label"></a></div>
+
+    <div class="form-group">
+    	Rectangle scale factor:
+
+    	<form ref="rectScale-form" id="rectScale-form">
+			<input type="text" class="form-control" id="scaleRectEntryBox" value="1.0" placeholder="Enter value between 0-1 (eg: 0.42)" onclick="this.select()">
+			<input type='submit' class="matching-btn" value="Scale shape"><br><br>
+		</form>
+
+		Circle scale factor:
+		<form ref="circScale-form" id="circScale-form">
+			<input type="text" class="form-control" id="scaleCircEntryBox" value="1.0" placeholder="Enter value between 0-1 (eg: 0.42)" onclick="this.select()">
+			<input type='submit' class="matching-btn" value="Scale shape"><br><br>
+		</form>
+	</div>
+    <!-- Leave me at the bottom of body -->
+    <script src="/index.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
