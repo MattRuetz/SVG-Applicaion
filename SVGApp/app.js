@@ -26,7 +26,6 @@ app.get('/',function(req,res){
 
 // Send Style, do not change
 app.get('/style.css',function(req,res){
-  //Feel free to change the contents of style.css to prettify your Web app
   res.sendFile(path.join(__dirname+'/public/style.css'));
 });
 
@@ -74,20 +73,7 @@ app.get('/uploads/:name', function(req , res){
   });
 });
 
-//******************** Your code goes here ******************** 
-
 let sharedLib = ffi.Library('./libsvgparse.so', {
-  /*'createValidSVGimage': [ 'pointer', ['string', 'string']],
-  'writeSVGimage': ['bool', ['pointer', 'string']],
-  'setAttribute': ['void', ['pointer', 'int', 'int', 'pointer']],
-  'addComponent': ['void', ['pointer', 'int', 'pointer']],
-
-  'attrListToJSON': ['string', ['pointer']],
-  'circListToJSON': ['string', ['pointer']],
-  'rectListToJSON': ['string', ['pointer']],
-  'pathListToJSON': ['string', ['pointer']],
-  'groupListToJSON': ['string', ['pointer']],
-  'SVGtoJSON': ['string', ['pointer']] //Takes SVG image pointer*/
 
   'svgFileToJSON': ['string', ['string', 'string']],
   'svgFileToComponentListJSON': ['string', ['string', 'string']],
@@ -106,7 +92,6 @@ let sharedLib = ffi.Library('./libsvgparse.so', {
 
 
 
-//Sample endpoint
 app.get('/getSVGJSONs', function(req , res){
 
   let dirPath = req.query.dirPath;
